@@ -1,7 +1,7 @@
 import "reflect-metadata"; // this shim is required
 import { createExpressServer } from "routing-controllers";
 
-import './app/database/connections';
+import './app/database/postgres';
 // creates express app, registers all controller routes and returns you express app instance
 const app = createExpressServer({
    defaultErrorHandler: false,
