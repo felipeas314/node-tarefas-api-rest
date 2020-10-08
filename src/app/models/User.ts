@@ -1,4 +1,5 @@
 import {Entity, PrimaryGeneratedColumn, Column} from "typeorm";
+import { IsDefined,MinLength } from "class-validator";
 
 export enum UserRole {
     ADMIN = "admin",
@@ -11,6 +12,8 @@ export class User {
     id: number;
 
     @Column()
+    @IsDefined()
+    @MinLength(6)
     name: string;
 
     @Column()

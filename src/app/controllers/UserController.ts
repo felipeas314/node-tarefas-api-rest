@@ -2,7 +2,7 @@ import { JsonController, Param, Body, Get, Post, Put, Delete, Req, Res } from "r
 import { Request, Response } from "express";
 import { ResponseDTO } from '../dto/ResponseDTO';
 import {getRepository, Repository} from "typeorm";
-
+import { validate } from 'class-validator';
 import { User } from '../models/User';
 
 @JsonController("/users")
@@ -25,8 +25,8 @@ export class UserController {
     }
 
     @Post()
-    async post(@Body() user: User, @Res() response: Response) {
-      const teste = await this.userRepository.save(user);  
+    async post(@Body({validate:true}) user: User, @Res() response: Response) {
+      await this.userRepository.save(user);  
 
       const responseDTO = new ResponseDTO<User>("qwer","asdf",user);
 
