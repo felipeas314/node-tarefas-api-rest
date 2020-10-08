@@ -1,29 +1,44 @@
-import { JsonController, Param, Body, Get, Post, Put, Delete } from "routing-controllers";
+import { JsonController, Param, Body, Get, Post, Put, Delete, Req, Res } from "routing-controllers";
+import { Request, Response } from "express";
+import { ResponseDTO } from '../dto/ResponseDTO';
+import {getRepository, Repository} from "typeorm";
 
-@JsonController()
+import { User } from '../models/User';
+
+@JsonController("/users")
 export class UserController {
 
-    @Get("/users")
-    getAll() {
-       return "This action returns all users";
+   private userRepository: Repository<User>;
+
+   constructor(){
+      this.userRepository = getRepository(User);
+   }
+
+    @Get()
+    async getAll() {
+      return await this.userRepository.find();
     }
 
-    @Get("/users/:id")
+    @Get("/:id")
     getOne(@Param("id") id: number) {
        return "This action returns user #" + id;
     }
 
-    @Post("/users")
-    post(@Body() user: any) {
-       return "Saving user...";
+    @Post()
+    async post(@Body() user: User, @Res() response: Response) {
+      const teste = await this.userRepository.save(user);  
+
+      const responseDTO = new ResponseDTO<User>("qwer","asdf",user);
+
+      return response.status(201).json(responseDTO);
     }
 
-    @Put("/users/:id")
-    put(@Param("id") id: number, @Body() user: any) {
+    @Put("/:id")
+    put(@Param("id") id: number, @Body() user: User) {
        return "Updating a user...";
     }
 
-    @Delete("/users/:id")
+    @Delete("/:id")
     remove(@Param("id") id: number) {
        return "Removing user...";
     }
