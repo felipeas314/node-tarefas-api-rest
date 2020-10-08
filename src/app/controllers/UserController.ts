@@ -15,7 +15,8 @@ export class UserController {
    }
 
     @Get()
-    async getAll() {
+    async getAll(@Res() response: Response) {
+      response.status(200);
       return await this.userRepository.find();
     }
 

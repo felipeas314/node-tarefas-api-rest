@@ -6,6 +6,7 @@ import './app/database/connections';
 const app = createExpressServer({
    defaultErrorHandler: false,
    routePrefix: "/api/v1",
+   interceptors: [__dirname + "/app/interceptors/*.ts"],
    middlewares: [__dirname + "/app/middlewares/*.ts"],
    controllers: [__dirname + "/app/controllers/*.ts"] // we specify controllers we want to use
 });
