@@ -15,12 +15,11 @@ export class TaskController {
 
   @Get()
   async getAll(@Res() response: Response){
-    return await this.taskRepository.find({ relations: ["user"] });
+    return this.taskRepository.find({ relations: ["user"] });
   }
 
   @Post()
   async create(@Body({validate:true}) task:Task, @Res() response: Response ){
-    const taskCriada = await this.taskRepository.save(task);
-    return response.status(201).json({message:'ok'});
+    return this.taskRepository.save(task);
   }
 }

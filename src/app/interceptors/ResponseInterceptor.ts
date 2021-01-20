@@ -1,4 +1,5 @@
 import { Interceptor, InterceptorInterface, Action } from "routing-controllers";
+import { ResponseDTO } from "../dto/ResponseDTO";
 
 @Interceptor()
 export class ResponseInterceptor implements InterceptorInterface {
